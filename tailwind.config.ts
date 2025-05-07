@@ -28,8 +28,8 @@ export default {
         primary: {
           DEFAULT: "hsl(var(--primary))",
           foreground: "hsl(var(--primary-foreground))",
-          light: "#3498db", // Light blue for gradients
-          dark: "#2366a3",  // Dark blue for gradients
+          light: "#00B2FF", // Light blue from logo
+          dark: "#0058B2",  // Dark blue from logo
         },
         secondary: {
           DEFAULT: "hsl(var(--secondary))",

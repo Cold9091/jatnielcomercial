@@ -84,4 +84,37 @@
   .service-card:hover {
     @apply translate-y-[-10px];
   }
+  
+  /* Animações adicionais */
+  .animate-fade-in {
+    @apply opacity-0 animate-[fadeIn_0.8s_ease-in-out_forwards];
+  }
+  
+  .animate-slide-up {
+    @apply opacity-0 translate-y-4 animate-[slideUp_0.6s_ease-out_forwards];
+  }
+  
+  .animate-pulse-subtle {
+    @apply animate-[pulse_3s_ease-in-out_infinite];
+  }
+  
+  .btn-hover {
+    @apply relative overflow-hidden transition-all duration-300 z-10 before:absolute before:inset-0 before:w-full before:h-full before:bg-white/10 before:translate-x-[-100%] before:z-[-1] hover:before:translate-x-0 before:transition-transform before:duration-300;
+  }
+}
+
+/* Animações keyframes */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajustes para modo escuro */
+.dark {
+  color-scheme: dark;
 }
