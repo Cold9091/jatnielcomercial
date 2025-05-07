@@ -10,24 +10,25 @@ interface StatItem {
 
 const stats: StatItem[] = [
   {
-    value: 120,
+    value: 30,
     label: "Projetos Concluídos",
     icon: "laptop-code",
     prefix: "+"
   },
   {
-    value: 98,
+    value: 40,
     label: "Clientes Satisfeitos",
     icon: "smile",
-    suffix: "%"
+    prefix: "+"
   },
   {
     value: 5,
     label: "Anos de Experiência",
-    icon: "calendar-check"
+    icon: "calendar-check",
+    suffix: " anos"
   },
   {
-    value: 340,
+    value: 300,
     label: "Formandos em Marketing",
     icon: "graduation-cap",
     prefix: "+"

@@ -25,6 +25,9 @@
   --destructive-foreground: 60 9.1% 97.8%;
   --ring: 20 14.3% 4.1%;
   --radius: 0.5rem;
+  
+  /* Scroll suave */
+  scroll-behavior: smooth;
 }
 
 .dark {
@@ -85,6 +88,30 @@
     @apply translate-y-[-10px];
   }
   
+  /* Microinterações nos botões */
+  .btn-primary {
+    @apply relative overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-md
+    after:absolute after:inset-0 after:z-[-1] after:bg-white/10 after:opacity-0 
+    hover:after:opacity-100 after:transition-opacity;
+  }
+  
+  /* Indicador de scroll ativo */
+  .nav-indicator {
+    @apply absolute bottom-0 left-0 h-1 bg-primary-light rounded-t-full transition-all duration-300;
+  }
+  
+  /* Efeito link no menu */
+  .menu-link {
+    @apply relative py-2 transition-all duration-300 
+    after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-light 
+    after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  /* Efeito de paralax */
+  .parallax-bg {
+    @apply bg-fixed bg-center bg-no-repeat bg-cover;
+  }
+  
   /* Animações adicionais */
   .animate-fade-in {
     @apply opacity-0 animate-[fadeIn_0.8s_ease-in-out_forwards];
@@ -102,6 +129,10 @@
     @apply opacity-0 translate-x-4 animate-[slideLeft_0.6s_ease-out_forwards];
   }
   
+  .animate-slide-down {
+    @apply opacity-0 -translate-y-2 animate-[slide-down_0.3s_ease-out_forwards];
+  }
+  
   .animate-pulse-subtle {
     @apply animate-[pulse_3s_ease-in-out_infinite];
   }
@@ -114,8 +145,25 @@
     @apply animate-[countUp_2s_ease-out_forwards];
   }
   
+  /* Efeito hover sofisticado para botões */
   .btn-hover {
-    @apply relative overflow-hidden transition-all duration-300 z-10 before:absolute before:inset-0 before:w-full before:h-full before:bg-white/10 before:translate-x-[-100%] before:z-[-1] hover:before:translate-x-0 before:transition-transform before:duration-300;
+    @apply relative overflow-hidden transition-all duration-300 z-10 
+    before:absolute before:inset-0 before:w-full before:h-full before:bg-white/10 
+    before:translate-x-[-100%] before:z-[-1] hover:before:translate-x-0 
+    before:transition-transform before:duration-300 hover:shadow-lg;
+  }
+  
+  /* Efeito de hover para cards */
+  .hover-float {
+    @apply transition-all duration-500 hover:transform hover:translate-y-[-10px] hover:shadow-lg;
+  }
+  
+  /* Efeito de destaque em elemento ativo */
+  .active-element {
+    @apply relative after:absolute after:-bottom-1 after:left-0 after:w-full 
+    after:h-0.5 after:bg-primary-light after:transform after:scale-x-0 
+    after:origin-bottom-right after:transition-transform after:duration-300
+    hover:after:scale-x-100 hover:after:origin-bottom-left;
   }
 }
 
@@ -149,6 +197,39 @@
 @keyframes countUp {
   0% { content: "0"; }
   100% { content: attr(data-target); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes shine {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+  100% { transform: scale(0.8); opacity: 0.8; }
+}
+
+@keyframes wave {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes slide-down {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
 }
 
 /* Ajustes para modo escuro */
