@@ -1,5 +1,6 @@
 import { scrollToElement } from "@/lib/utils";
 import { useEffect, useState } from "react";
+import heroImage from "@assets/Imagem WhatsApp 2025-05-07 às 21.26.24_3b505a7b.jpg";
 
 const Hero = () => {
   const [isVisible, setIsVisible] = useState(false);
@@ -36,11 +37,14 @@ const Hero = () => {
             </div>
           </div>
           <div className={`md:w-1/2 transition-all duration-700 transform ${isVisible ? 'translate-x-0 opacity-100' : 'translate-x-10 opacity-0'} delay-300`}>
-            <img 
-              src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&h=600" 
-              alt="Profissional desenvolvendo website" 
-              className="rounded-xl shadow-xl w-full h-auto hover:scale-[1.02] transition-transform duration-500"
-            />
+            <div className="relative">
+              <div className="absolute inset-0 bg-gradient-to-r from-primary-dark to-primary-light opacity-10 rounded-xl"></div>
+              <img 
+                src={heroImage} 
+                alt="Profissional da Jatniel Comercial" 
+                className="rounded-xl shadow-xl w-full h-auto hover:scale-[1.02] transition-transform duration-500 relative z-10"
+              />
+            </div>
           </div>
         </div>
       </div>
