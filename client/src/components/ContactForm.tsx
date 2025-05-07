@@ -57,9 +57,9 @@ const ContactForm = () => {
   };
 
   return (
-    <section id="contacto" className="py-16 bg-gray-50">
+    <section id="contacto" className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <div className="flex flex-col md:flex-row bg-white rounded-xl shadow-xl overflow-hidden">
+        <div className="flex flex-col md:flex-row bg-white dark:bg-gray-900 rounded-xl shadow-xl overflow-hidden animate-fade-in">
           <div className="md:w-1/2 gradient-bg p-8 md:p-12">
             <h2 className="text-3xl font-poppins font-bold text-white mb-4">Entre em Contacto</h2>
             <p className="text-white opacity-90 mb-6">
@@ -67,9 +67,9 @@ const ContactForm = () => {
             </p>
             
             <div className="space-y-6">
-              <div className="flex items-start">
+              <div className="flex items-start transform transition-transform hover:translate-x-2 duration-300">
                 <div className="text-white mr-4 mt-1">
-                  <i className="fas fa-phone-alt"></i>
+                  <i className="fas fa-phone-alt animate-pulse-subtle"></i>
                 </div>
                 <div>
                   <h4 className="font-poppins font-semibold text-white">WhatsApp</h4>
@@ -77,9 +77,9 @@ const ContactForm = () => {
                 </div>
               </div>
               
-              <div className="flex items-start">
+              <div className="flex items-start transform transition-transform hover:translate-x-2 duration-300">
                 <div className="text-white mr-4 mt-1">
-                  <i className="fab fa-instagram"></i>
+                  <i className="fab fa-instagram animate-pulse-subtle"></i>
                 </div>
                 <div>
                   <h4 className="font-poppins font-semibold text-white">Instagram</h4>
@@ -87,9 +87,9 @@ const ContactForm = () => {
                 </div>
               </div>
               
-              <div className="flex items-start">
+              <div className="flex items-start transform transition-transform hover:translate-x-2 duration-300">
                 <div className="text-white mr-4 mt-1">
-                  <i className="fab fa-facebook"></i>
+                  <i className="fab fa-facebook animate-pulse-subtle"></i>
                 </div>
                 <div>
                   <h4 className="font-poppins font-semibold text-white">Facebook</h4>
@@ -99,7 +99,7 @@ const ContactForm = () => {
             </div>
           </div>
           
-          <div className="md:w-1/2 p-8 md:p-12">
+          <div className="md:w-1/2 p-8 md:p-12 dark:bg-gray-900">
             <Form {...form}>
               <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
                 <FormField
@@ -107,9 +107,13 @@ const ContactForm = () => {
                   name="name"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Nome Completo</FormLabel>
+                      <FormLabel className="text-gray-900 dark:text-white">Nome Completo</FormLabel>
                       <FormControl>
-                        <Input placeholder="Seu nome completo" {...field} />
+                        <Input 
+                          placeholder="Seu nome completo" 
+                          {...field} 
+                          className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:border-primary-light dark:focus:border-primary-light" 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -121,9 +125,14 @@ const ContactForm = () => {
                   name="email"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Email</FormLabel>
+                      <FormLabel className="text-gray-900 dark:text-white">Email</FormLabel>
                       <FormControl>
-                        <Input type="email" placeholder="seu.email@exemplo.com" {...field} />
+                        <Input 
+                          type="email" 
+                          placeholder="seu.email@exemplo.com" 
+                          {...field} 
+                          className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:border-primary-light dark:focus:border-primary-light" 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -135,9 +144,13 @@ const ContactForm = () => {
                   name="phone"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Telefone</FormLabel>
+                      <FormLabel className="text-gray-900 dark:text-white">Telefone</FormLabel>
                       <FormControl>
-                        <Input placeholder="922 000 000" {...field} />
+                        <Input 
+                          placeholder="922 000 000" 
+                          {...field} 
+                          className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 focus:border-primary-light dark:focus:border-primary-light" 
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -149,14 +162,14 @@ const ContactForm = () => {
                   name="service"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Serviço de Interesse</FormLabel>
+                      <FormLabel className="text-gray-900 dark:text-white">Serviço de Interesse</FormLabel>
                       <Select onValueChange={field.onChange} defaultValue={field.value}>
                         <FormControl>
-                          <SelectTrigger>
+                          <SelectTrigger className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white">
                             <SelectValue placeholder="Selecione uma opção" />
                           </SelectTrigger>
                         </FormControl>
-                        <SelectContent>
+                        <SelectContent className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700">
                           <SelectItem value="landing_page">Landing Page</SelectItem>
                           <SelectItem value="professional_site">Site Profissional</SelectItem>
                           <SelectItem value="ecommerce">E-commerce</SelectItem>
@@ -174,12 +187,13 @@ const ContactForm = () => {
                   name="message"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Mensagem</FormLabel>
+                      <FormLabel className="text-gray-900 dark:text-white">Mensagem</FormLabel>
                       <FormControl>
                         <Textarea 
                           placeholder="Descreva sua necessidade ou dúvida..." 
                           rows={4} 
                           {...field} 
+                          className="bg-white dark:bg-gray-800 border-gray-300 dark:border-gray-700 text-gray-900 dark:text-white focus:border-primary-light dark:focus:border-primary-light"
                         />
                       </FormControl>
                       <FormMessage />
@@ -190,7 +204,7 @@ const ContactForm = () => {
                 <button 
                   type="submit" 
                   disabled={isSubmitting}
-                  className="w-full gradient-bg text-white font-poppins font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 disabled:opacity-70"
+                  className="w-full gradient-bg text-white font-poppins font-medium py-3 px-8 rounded-full shadow-lg hover:shadow-xl transition duration-300 disabled:opacity-70 btn-hover"
                 >
                   {isSubmitting ? "Enviando..." : "Enviar Mensagem"}
                 </button>

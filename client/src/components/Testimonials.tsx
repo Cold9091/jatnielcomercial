@@ -32,18 +32,22 @@ const testimonials: Testimonial[] = [
 
 const Testimonials = () => {
   return (
-    <section id="sobre" className="py-16">
+    <section id="sobre" className="py-16 bg-white dark:bg-gray-900 transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4">O Que Nossos Clientes Dizem</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4 text-gray-900 dark:text-white">O Que Nossos Clientes Dizem</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             A satisfação dos nossos clientes é o melhor indicador da qualidade do nosso trabalho.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="bg-white rounded-xl shadow-lg p-8">
+            <div 
+              key={index} 
+              className="bg-white dark:bg-gray-800 rounded-xl shadow-lg p-8 transform transition-all duration-300 hover:-translate-y-2 hover:shadow-xl animate-slide-up"
+              style={{ animationDelay: `${index * 150}ms` }}
+            >
               <div className="text-primary-light mb-4">
                 {[...Array(Math.floor(testimonial.rating))].map((_, i) => (
                   <i key={i} className="fas fa-star"></i>
@@ -52,14 +56,14 @@ const Testimonials = () => {
                   <i className="fas fa-star-half-alt"></i>
                 )}
               </div>
-              <p className="text-gray-600 italic mb-6">"{testimonial.content}"</p>
+              <p className="text-gray-600 dark:text-gray-300 italic mb-6">"{testimonial.content}"</p>
               <div className="flex items-center">
-                <div className="w-12 h-12 bg-primary-light rounded-full flex items-center justify-center mr-3">
+                <div className="w-12 h-12 gradient-bg rounded-full flex items-center justify-center mr-3 animate-pulse-subtle">
                   <span className="text-white font-bold">{testimonial.initials}</span>
                 </div>
                 <div>
-                  <h4 className="font-poppins font-semibold">{testimonial.author}</h4>
-                  <p className="text-gray-500 text-sm">{testimonial.role}</p>
+                  <h4 className="font-poppins font-semibold text-gray-900 dark:text-white">{testimonial.author}</h4>
+                  <p className="text-gray-500 dark:text-gray-400 text-sm">{testimonial.role}</p>
                 </div>
               </div>
             </div>

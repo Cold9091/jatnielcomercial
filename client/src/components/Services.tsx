@@ -50,22 +50,23 @@ const serviceItems: ServiceItem[] = [
 
 const Services = () => {
   return (
-    <section id="servicos" className="py-16 bg-gray-50">
+    <section id="servicos" className="py-16 bg-gray-50 dark:bg-gray-800 transition-colors duration-300">
       <div className="container mx-auto px-4">
-        <div className="text-center mb-16">
-          <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4">Nossos Serviços de Desenvolvimento</h2>
-          <p className="text-lg text-gray-600 max-w-3xl mx-auto">
+        <div className="text-center mb-16 animate-fade-in">
+          <h2 className="text-3xl md:text-4xl font-poppins font-bold mb-4 text-gray-900 dark:text-white">Nossos Serviços de Desenvolvimento</h2>
+          <p className="text-lg text-gray-600 dark:text-gray-300 max-w-3xl mx-auto">
             Oferecemos soluções personalizadas para diferentes necessidades e orçamentos, sempre com foco na qualidade e resultados.
           </p>
         </div>
         
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-          {serviceItems.map((service) => (
+          {serviceItems.map((service, index) => (
             <div 
               key={service.id}
-              className={`service-card bg-white rounded-xl shadow-lg overflow-hidden ${
-                service.popular ? "transform scale-105 z-10" : ""
-              }`}
+              className={`service-card bg-white dark:bg-gray-900 rounded-xl shadow-lg overflow-hidden 
+                ${service.popular ? "transform scale-105 z-10" : ""}
+                animate-slide-up`}
+              style={{ animationDelay: `${index * 150}ms` }}
             >
               {service.popular && (
                 <div className="absolute top-0 right-0 bg-primary-dark text-white py-1 px-4 rounded-bl-lg font-poppins text-sm">
@@ -100,7 +101,7 @@ const Services = () => {
                           d="M5 13l4 4L19 7"
                         />
                       </svg>
-                      <span>{feature}</span>
+                      <span className="dark:text-gray-300">{feature}</span>
                     </li>
                   ))}
                 </ul>
@@ -108,7 +109,7 @@ const Services = () => {
                 <div className="mt-8">
                   <a 
                     href={getWhatsAppLink(`Olá, estou interessado no pacote ${service.title}`)}
-                    className="block text-center gradient-bg text-white font-poppins font-medium py-3 px-8 rounded-full hover:shadow-lg transition duration-300"
+                    className="block text-center gradient-bg text-white font-poppins font-medium py-3 px-8 rounded-full hover:shadow-lg transition duration-300 btn-hover"
                   >
                     Solicitar Orçamento
                   </a>
