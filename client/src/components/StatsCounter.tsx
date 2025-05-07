@@ -39,6 +39,7 @@ const StatsCounter: React.FC = () => {
   const [isVisible, setIsVisible] = useState(false);
   const [counters, setCounters] = useState<number[]>(stats.map(() => 0));
   const sectionRef = useRef<HTMLDivElement>(null);
+  const animationExecutedRef = useRef<boolean>(false);
 
   // Efeito para detectar quando a seção entra na viewport
   useEffect(() => {
@@ -46,6 +47,10 @@ const StatsCounter: React.FC = () => {
       (entries) => {
         if (entries[0].isIntersecting && !isVisible) {
           setIsVisible(true);
+          // Desconectar o observer após ativação para evitar disparo múltiplo
+          if (sectionRef.current) {
+            observer.unobserve(sectionRef.current);
+          }
         }
       },
       { 
@@ -62,24 +67,31 @@ const StatsCounter: React.FC = () => {
         observer.unobserve(sectionRef.current);
       }
     };
-  }, [isVisible]);
+  }, []);
 
   // Efeito para animar os contadores quando a seção se torna visível
   useEffect(() => {
-    if (!isVisible) return;
+    if (!isVisible || animationExecutedRef.current) return;
 
+    // Marcar que a animação já foi executada
+    animationExecutedRef.current = true;
+    
     const duration = 2000; // Duração total da animação em ms
     const frameDuration = 1000 / 60; // Aproximadamente 60fps
     const totalFrames = Math.round(duration / frameDuration);
-
-    let frame = 0;
+    
+    // Objeto para armazenar os frames de cada contador
+    const frames: { [key: number]: number } = {};
     const timers: NodeJS.Timeout[] = [];
-
+    
     stats.forEach((stat, index) => {
+      frames[index] = 0;
+      
       const timer = setInterval(() => {
-        frame++;
+        frames[index]++;
+        
         // Usar easing para tornar a animação mais natural
-        const progress = frame / totalFrames;
+        const progress = frames[index] / totalFrames;
         const easeOutQuad = 1 - (1 - progress) * (1 - progress);
         const value = Math.floor(easeOutQuad * stat.value);
         
@@ -88,8 +100,8 @@ const StatsCounter: React.FC = () => {
           newCounters[index] = value;
           return newCounters;
         });
-
-        if (frame === totalFrames) {
+        
+        if (frames[index] >= totalFrames) {
           clearInterval(timer);
           
           // Garantir que o valor final seja exatamente o alvo
@@ -103,7 +115,7 @@ const StatsCounter: React.FC = () => {
       
       timers.push(timer);
     });
-
+    
     return () => {
       timers.forEach(timer => clearInterval(timer));
     };
