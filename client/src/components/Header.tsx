@@ -90,9 +90,6 @@ const Header = () => {
                 <span className="font-poppins text-lg font-bold text-gray-800 dark:text-white animate-fade-in">
                   Jatniel Comercial
                 </span>
-                <span className="text-xs text-gray-500 dark:text-gray-400">
-                  venda de produtos eletrônicos
-                </span>
               </div>
             </a>
           </Link>
