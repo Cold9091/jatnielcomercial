@@ -44,18 +44,21 @@ const Header = () => {
           </Link>
         </div>
         
-        <nav className="hidden md:flex items-center space-x-6">
+        <nav className="hidden md:flex items-center space-x-4 lg:space-x-6">
           <button onClick={() => handleNavClick("inicio")} className="font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
             Início
           </button>
           <button onClick={() => handleNavClick("servicos")} className="font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
-            Serviços
+            Web
+          </button>
+          <button onClick={() => handleNavClick("design")} className="font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
+            Design
           </button>
           <button onClick={() => handleNavClick("cursos")} className="font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
             Cursos
           </button>
           <button onClick={() => handleNavClick("sobre")} className="font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
-            Sobre Nós
+            Sobre
           </button>
           <button onClick={() => handleNavClick("contacto")} className="font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
             Contacto
@@ -82,13 +85,16 @@ const Header = () => {
               Início
             </button>
             <button onClick={() => handleNavClick("servicos")} className="block py-2 w-full text-left font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
-              Serviços
+              Web
+            </button>
+            <button onClick={() => handleNavClick("design")} className="block py-2 w-full text-left font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
+              Design
             </button>
             <button onClick={() => handleNavClick("cursos")} className="block py-2 w-full text-left font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
               Cursos
             </button>
             <button onClick={() => handleNavClick("sobre")} className="block py-2 w-full text-left font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
-              Sobre Nós
+              Sobre
             </button>
             <button onClick={() => handleNavClick("contacto")} className="block py-2 w-full text-left font-poppins font-medium text-gray-700 dark:text-gray-200 hover:text-primary-light dark:hover:text-primary-light transition">
               Contacto
