@@ -4,6 +4,9 @@ import Services from "@/components/Services";
 import DesignServices from "@/components/DesignServices";
 import Courses from "@/components/Courses";
 import AboutUs from "@/components/AboutUs";
+import StatsCounter from "@/components/StatsCounter";
+import WorkProcess from "@/components/WorkProcess"; 
+import Faq from "@/components/Faq";
 import Testimonials from "@/components/Testimonials";
 import ContactForm from "@/components/ContactForm";
 import Footer from "@/components/Footer";
@@ -27,8 +30,11 @@ const Home = () => {
       <Hero />
       <Services />
       <DesignServices />
+      <WorkProcess />
+      <StatsCounter />
       <Courses />
       <AboutUs />
+      <Faq />
       <Testimonials />
       <ContactForm />
       <Footer />
