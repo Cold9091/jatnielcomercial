@@ -8,6 +8,7 @@ import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { apiRequest } from "@/lib/queryClient";
 import { useToast } from "@/hooks/use-toast";
+import { getWhatsAppLink } from "@/lib/utils";
 
 const formSchema = z.object({
   name: z.string().min(2, { message: "Nome deve ter pelo menos 2 caracteres" }),
@@ -46,32 +47,74 @@ const ContactForm = () => {
     }
   }, [submitSuccess]);
 
+  // Função para construir a mensagem de WhatsApp com os dados do formulário
+  const buildWhatsAppMessage = (data: FormValues): string => {
+    // Mapear o valor do serviço para texto legível
+    const serviceMap: Record<string, string> = {
+      'landing_page': 'Landing Page',
+      'professional_site': 'Site Profissional',
+      'ecommerce': 'E-commerce',
+      'logo_design': 'Design de Logotipo',
+      'branding': 'Construção de Marca',
+      'banners': 'Banners Publicitários',
+      'digital_marketing_course': 'Cursos de Marketing Digital',
+      'other': 'Outro'
+    };
+
+    // Construir a mensagem formatada
+    return `
+*Nova Mensagem de Contato*
+---------------------------
+*Nome:* ${data.name}
+*Email:* ${data.email}
+*Telefone:* ${data.phone}
+*Serviço de Interesse:* ${serviceMap[data.service] || data.service}
+*Mensagem:*
+${data.message}
+---------------------------
+`;
+  };
+
   const onSubmit = async (data: FormValues) => {
     setIsSubmitting(true);
     setSubmitSuccess(false);
     
     try {
-      await apiRequest("POST", "/api/contact", data);
+      // Construir mensagem de WhatsApp
+      const whatsAppMessage = buildWhatsAppMessage(data);
       
+      // Criar o link do WhatsApp com a mensagem
+      const whatsAppLink = getWhatsAppLink(whatsAppMessage);
+      
+      // Também salvar no backend para ter um registro (opcional)
+      try {
+        await apiRequest("POST", "/api/contact", data);
+      } catch (err) {
+        console.error("Erro ao salvar dados no servidor, mas prosseguindo com WhatsApp", err);
+      }
+      
+      // Definir como sucesso antes de abrir o WhatsApp
       setSubmitSuccess(true);
       
-      // Animate success notification
+      // Notificar o usuário
       toast({
-        title: "Mensagem enviada!",
-        description: "Obrigado pelo seu contacto! Entraremos em contacto em breve.",
+        title: "Redirecionando para WhatsApp",
+        description: "Finalizando preparação para enviar sua mensagem via WhatsApp...",
         variant: "default",
       });
       
-      // Scroll to form top with animation
-      if (formRef.current) {
-        formRef.current.scrollIntoView({ behavior: 'smooth' });
-      }
-      
+      // Resetar o formulário
       form.reset();
+      
+      // Pequeno delay antes de abrir o WhatsApp para permitir que a UI mostre sucesso
+      setTimeout(() => {
+        window.open(whatsAppLink, '_blank');
+      }, 1000);
+      
     } catch (error) {
       toast({
-        title: "Erro ao enviar mensagem",
-        description: "Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.",
+        title: "Erro ao processar mensagem",
+        description: "Ocorreu um erro ao processar sua mensagem. Por favor, tente novamente ou entre em contato diretamente pelo WhatsApp.",
         variant: "destructive",
       });
     } finally {
@@ -138,8 +181,8 @@ const ContactForm = () => {
                     <i className="fas fa-check text-white text-xl"></i>
                   </div>
                   <div>
-                    <h4 className="font-poppins font-semibold text-white text-lg">Mensagem Enviada!</h4>
-                    <p className="text-white opacity-90">Agradecemos seu contato. Entraremos em contato em breve.</p>
+                    <h4 className="font-poppins font-semibold text-white text-lg">Redirecionando para WhatsApp!</h4>
+                    <p className="text-white opacity-90">Abrindo WhatsApp para enviar sua mensagem...</p>
                   </div>
                 </div>
               </div>
@@ -152,7 +195,7 @@ const ContactForm = () => {
               <div className="absolute inset-0 bg-white/60 dark:bg-gray-900/60 flex items-center justify-center z-10 backdrop-blur-sm">
                 <div className="text-center">
                   <div className="w-16 h-16 border-4 border-primary-light border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-                  <p className="text-primary-dark dark:text-primary-light font-medium">Enviando mensagem...</p>
+                  <p className="text-primary-dark dark:text-primary-light font-medium">Preparando mensagem para WhatsApp...</p>
                 </div>
               </div>
             )}
@@ -287,17 +330,17 @@ const ContactForm = () => {
                     {isSubmitting ? (
                       <>
                         <i className="fas fa-spinner fa-spin mr-2"></i>
-                        Enviando...
+                        Processando...
                       </>
                     ) : submitSuccess ? (
                       <>
                         <i className="fas fa-check mr-2"></i>
-                        Mensagem Enviada
+                        Abrindo WhatsApp
                       </>
                     ) : (
                       <>
-                        <i className="fas fa-paper-plane mr-2 group-hover:translate-x-1 transition-transform"></i>
-                        Enviar Mensagem
+                        <i className="fab fa-whatsapp mr-2 group-hover:translate-x-1 transition-transform"></i>
+                        Enviar via WhatsApp
                       </>
                     )}
                   </span>
