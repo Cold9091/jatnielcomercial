@@ -1,42 +1,87 @@
 // api/index.js
-import { createServer } from 'http';
-import { fileURLToPath } from 'url';
-import { dirname, resolve } from 'path';
-import fs from 'fs';
 import express from 'express';
+import { z } from 'zod';
 
-const __dirname = dirname(fileURLToPath(import.meta.url));
-const app = express();
+// Simulação de armazenamento em memória para contatos
+class MemStorage {
+  constructor() {
+    this.contacts = new Map();
+    this.contactCurrentId = 1;
+  }
 
-// Middleware para processar JSON e formulários
-app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+  async createContact(insertContact) {
+    const id = this.contactCurrentId++;
+    const contact = { ...insertContact, id };
+    this.contacts.set(id, contact);
+    return contact;
+  }
 
-// Servir arquivos estáticos da pasta dist/public
-const staticPath = resolve(__dirname, '../dist/public');
-if (fs.existsSync(staticPath)) {
-  app.use(express.static(staticPath));
-} else {
-  console.warn(`Diretório estático não encontrado: ${staticPath}`);
+  async getAllContacts() {
+    return Array.from(this.contacts.values());
+  }
 }
 
-// Rota padrão para servir o arquivo index.html
-app.get('*', (req, res) => {
-  const indexPath = resolve(staticPath, 'index.html');
-  if (fs.existsSync(indexPath)) {
-    res.sendFile(indexPath);
-  } else {
-    res.status(404).send('Aplicação não encontrada. Certifique-se de que o build foi realizado corretamente.');
+const storage = new MemStorage();
+
+// Schema para validação de contatos
+const insertContactSchema = z.object({
+  name: z.string(),
+  email: z.string().email(),
+  phone: z.string(),
+  service: z.string(),
+  message: z.string()
+});
+
+// Configuração do Express
+const app = express();
+app.use(express.json());
+
+// Rota para criar contatos
+app.post('/api/contact', async (req, res) => {
+  try {
+    const validatedData = insertContactSchema.parse(req.body);
+    const contact = await storage.createContact({
+      ...validatedData,
+      createdAt: new Date().toISOString()
+    });
+    
+    return res.status(201).json({
+      message: "Mensagem enviada com sucesso",
+      contact: {
+        id: contact.id,
+        name: contact.name
+      }
+    });
+  } catch (error) {
+    if (error instanceof z.ZodError) {
+      return res.status(400).json({
+        message: "Dados inválidos",
+        errors: error.errors
+      });
+    }
+    console.error("Error creating contact:", error);
+    return res.status(500).json({
+      message: "Erro ao processar a solicitação"
+    });
   }
 });
 
-// Criar servidor HTTP
-const server = createServer(app);
-const port = process.env.PORT || 3000;
+// Rota para listar contatos
+app.get('/api/contacts', async (req, res) => {
+  try {
+    const contacts = await storage.getAllContacts();
+    return res.status(200).json(contacts);
+  } catch (error) {
+    console.error("Error fetching contacts:", error);
+    return res.status(500).json({
+      message: "Erro ao buscar contatos"
+    });
+  }
+});
 
-// Iniciar o servidor
-server.listen(port, () => {
-  console.log(`Servidor rodando na porta ${port}`);
+// Rota para verificar se a API está funcionando
+app.get('/api', (req, res) => {
+  res.status(200).json({ status: 'API funcionando corretamente' });
 });
 
 // Exportar para uso com serverless

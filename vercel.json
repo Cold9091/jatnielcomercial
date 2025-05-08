@@ -1,19 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "vercel-entry.js",
-      "use": "@vercel/node"
-    },
-    {
-      "src": "dist/public/**",
-      "use": "@vercel/static"
-    }
-  ],
-  "routes": [
-    { "src": "/api/(.*)", "dest": "/vercel-entry.js" },
-    { "src": "/assets/(.*)", "dest": "/dist/public/assets/$1" },
-    { "src": "/([^/]+)\\.(js|css|svg|png|jpg|jpeg|gif|ico|json)", "dest": "/dist/public/$1.$2" },
-    { "src": "/(.*)", "dest": "/vercel-entry.js" }
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist/public",
+  "framework": "vite",
+  "rewrites": [
+    { "source": "/api/(.*)", "destination": "/api" }
   ]
 }
