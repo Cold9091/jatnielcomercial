@@ -1,0 +1,238 @@
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: 0 0% 100%;
+  --foreground: 20 14.3% 4.1%;
+  --muted: 60 4.8% 95.9%;
+  --muted-foreground: 25 5.3% 44.7%;
+  --popover: 0 0% 100%;
+  --popover-foreground: 20 14.3% 4.1%;
+  --card: 0 0% 100%;
+  --card-foreground: 20 14.3% 4.1%;
+  --border: 20 5.9% 90%;
+  --input: 20 5.9% 90%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 60 4.8% 95.9%;
+  --secondary-foreground: 24 9.8% 10%;
+  --accent: 60 4.8% 95.9%;
+  --accent-foreground: 24 9.8% 10%;
+  --destructive: 0 84.2% 60.2%;
+  --destructive-foreground: 60 9.1% 97.8%;
+  --ring: 20 14.3% 4.1%;
+  --radius: 0.5rem;
+  
+  /* Scroll suave */
+  scroll-behavior: smooth;
+}
+
+.dark {
+  --background: 240 10% 3.9%;
+  --foreground: 0 0% 98%;
+  --muted: 240 3.7% 15.9%;
+  --muted-foreground: 240 5% 64.9%;
+  --popover: 240 10% 3.9%;
+  --popover-foreground: 0 0% 98%;
+  --card: 240 10% 3.9%;
+  --card-foreground: 0 0% 98%;
+  --border: 240 3.7% 15.9%;
+  --input: 240 3.7% 15.9%;
+  --primary: 207 90% 54%;
+  --primary-foreground: 211 100% 99%;
+  --secondary: 240 3.7% 15.9%;
+  --secondary-foreground: 0 0% 98%;
+  --accent: 240 3.7% 15.9%;
+  --accent-foreground: 0 0% 98%;
+  --destructive: 0 62.8% 30.6%;
+  --destructive-foreground: 0 0% 98%;
+  --ring: 240 4.9% 83.9%;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply font-roboto antialiased bg-background text-foreground;
+  }
+  
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-poppins font-semibold;
+  }
+}
+
+@layer components {
+  .gradient-text {
+    @apply bg-gradient-to-r from-primary-light to-primary-dark bg-clip-text text-transparent;
+  }
+  
+  .gradient-bg {
+    @apply bg-gradient-to-r from-primary-light to-primary-dark;
+  }
+  
+  .card-hover {
+    @apply transition-all duration-300 hover:translate-y-[-5px] hover:shadow-lg hover:shadow-primary/20;
+  }
+  
+  .service-card {
+    @apply transition-all duration-300;
+  }
+  
+  .service-card:hover {
+    @apply translate-y-[-10px];
+  }
+  
+  /* Microinterações nos botões */
+  .btn-primary {
+    @apply relative overflow-hidden transition-all duration-300 transform hover:scale-105 hover:shadow-md
+    after:absolute after:inset-0 after:z-[-1] after:bg-white/10 after:opacity-0 
+    hover:after:opacity-100 after:transition-opacity;
+  }
+  
+  /* Indicador de scroll ativo */
+  .nav-indicator {
+    @apply absolute bottom-0 left-0 h-1 bg-primary-light rounded-t-full transition-all duration-300;
+  }
+  
+  /* Efeito link no menu */
+  .menu-link {
+    @apply relative py-2 transition-all duration-300 
+    after:absolute after:bottom-0 after:left-0 after:h-[2px] after:w-0 after:bg-primary-light 
+    after:transition-all after:duration-300 hover:after:w-full;
+  }
+  
+  /* Efeito de paralax */
+  .parallax-bg {
+    @apply bg-fixed bg-center bg-no-repeat bg-cover;
+  }
+  
+  /* Animações adicionais */
+  .animate-fade-in {
+    @apply opacity-0 animate-[fadeIn_0.8s_ease-in-out_forwards];
+  }
+  
+  .animate-slide-up {
+    @apply opacity-0 translate-y-4 animate-[slideUp_0.6s_ease-out_forwards];
+  }
+  
+  .animate-slide-right {
+    @apply opacity-0 -translate-x-4 animate-[slideRight_0.6s_ease-out_forwards];
+  }
+
+  .animate-slide-left {
+    @apply opacity-0 translate-x-4 animate-[slideLeft_0.6s_ease-out_forwards];
+  }
+  
+  .animate-slide-down {
+    @apply opacity-0 -translate-y-2 animate-[slide-down_0.3s_ease-out_forwards];
+  }
+  
+  .animate-pulse-subtle {
+    @apply animate-[pulse_3s_ease-in-out_infinite];
+  }
+  
+  .animate-bounce-once {
+    @apply animate-[bounce_1s_ease-in-out];
+  }
+  
+  .animate-count-up {
+    @apply animate-[countUp_2s_ease-out_forwards];
+  }
+  
+  /* Efeito hover sofisticado para botões */
+  .btn-hover {
+    @apply relative overflow-hidden transition-all duration-300 z-10 
+    before:absolute before:inset-0 before:w-full before:h-full before:bg-white/10 
+    before:translate-x-[-100%] before:z-[-1] hover:before:translate-x-0 
+    before:transition-transform before:duration-300 hover:shadow-lg;
+  }
+  
+  /* Efeito de hover para cards */
+  .hover-float {
+    @apply transition-all duration-500 hover:transform hover:translate-y-[-10px] hover:shadow-lg;
+  }
+  
+  /* Efeito de destaque em elemento ativo */
+  .active-element {
+    @apply relative after:absolute after:-bottom-1 after:left-0 after:w-full 
+    after:h-0.5 after:bg-primary-light after:transform after:scale-x-0 
+    after:origin-bottom-right after:transition-transform after:duration-300
+    hover:after:scale-x-100 hover:after:origin-bottom-left;
+  }
+}
+
+/* Animações keyframes */
+@keyframes fadeIn {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
+}
+
+@keyframes slideUp {
+  0% { opacity: 0; transform: translateY(16px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+@keyframes slideRight {
+  0% { opacity: 0; transform: translateX(-16px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes slideLeft {
+  0% { opacity: 0; transform: translateX(16px); }
+  100% { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes bounce {
+  0%, 20%, 50%, 80%, 100% { transform: translateY(0); }
+  40% { transform: translateY(-20px); }
+  60% { transform: translateY(-10px); }
+}
+
+@keyframes countUp {
+  0% { content: "0"; }
+  100% { content: attr(data-target); }
+}
+
+@keyframes float {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-10px); }
+  100% { transform: translateY(0px); }
+}
+
+@keyframes shine {
+  0% { background-position: -100% 0; }
+  100% { background-position: 200% 0; }
+}
+
+@keyframes rotate {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+@keyframes pulse-ring {
+  0% { transform: scale(0.8); opacity: 0.8; }
+  50% { transform: scale(1.2); opacity: 0.5; }
+  100% { transform: scale(0.8); opacity: 0.8; }
+}
+
+@keyframes wave {
+  0% { transform: translateX(-100%); }
+  50% { transform: translateX(0); }
+  100% { transform: translateX(100%); }
+}
+
+@keyframes slide-down {
+  0% { opacity: 0; transform: translateY(-10px); }
+  100% { opacity: 1; transform: translateY(0); }
+}
+
+/* Ajustes para modo escuro */
+.dark {
+  color-scheme: dark;
+}
