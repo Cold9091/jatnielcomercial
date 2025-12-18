@@ -36,9 +36,22 @@ const Store = ({ isFullPage = false }: StoreProps) => {
     ? "/api/products" 
     : `/api/products?category=${selectedCategory}`;
 
-  const { data: products, isLoading } = useQuery<Product[]>({
+  const { data: products, isLoading, error } = useQuery<Product[]>({
     queryKey: [queryUrl],
+    // Explicit queryFn so failures are surfaced and behave consistently
+    queryFn: async () => {
+      const res = await fetch(queryUrl, { credentials: "include" });
+      if (!res.ok) {
+        const text = (await res.text()) || res.statusText;
+        throw new Error(`${res.status}: ${text}`);
+      }
+      return await res.json();
+    },
   });
+
+  // Dev debug logs so we can see fetch status in the browser console
+  if (error) console.error("Store: error fetching products", error);
+  else if (!isLoading) console.debug("Store: products", products);
 
   const handleWhatsAppOrder = (product: Product) => {
     const message = `Olá! Tenho interesse no produto:\n\n*${product.name}*\nPreço: ${formatPrice(product.price)}\n\nGostaria de mais informações.`;
@@ -92,9 +105,13 @@ const Store = ({ isFullPage = false }: StoreProps) => {
               </Card>
             ))}
           </div>
+        ) : error ? (
+          <div className="text-center py-12">
+            <p className="text-red-500" data-testid="text-error-products">Erro ao carregar produtos: {String(error?.message || 'Erro desconhecido')}</p>
+          </div>
         ) : (
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-            {products?.map((product) => (
+            {(products || []).map((product) => (
               <Card 
                 key={product.id} 
                 className="overflow-hidden card-hover group"
