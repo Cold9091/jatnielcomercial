@@ -49,7 +49,13 @@ export class MemStorage implements IStorage {
           "https://res.cloudinary.com/dl90hjhoj/image/upload/v1765880925/WhatsApp_Image_2025-12-15_at_14.03.13_1_tyaq0u.jpg",
           "https://res.cloudinary.com/dl90hjhoj/image/upload/v1765880926/WhatsApp_Image_2025-12-15_at_14.03.14_lgyja8.jpg",
           "https://res.cloudinary.com/dl90hjhoj/image/upload/v1765880925/WhatsApp_Image_2025-12-15_at_14.03.13_qnlgtc.jpg",
-          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1765880923/WhatsApp_Image_2025-12-15_at_14.03.16_1_uil3iq.jpg"
+          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1765880923/WhatsApp_Image_2025-12-15_at_14.03.16_1_uil3iq.jpg",
+          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1767828479/WhatsApp_Image_2026-01-07_at_23.33.43_1_mmjauy.jpg",
+          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1767828479/WhatsApp_Image_2026-01-07_at_23.33.42_xbnpqz.jpg",
+          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1767828479/WhatsApp_Image_2026-01-07_at_23.33.43_w4qlmh.jpg",
+          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1767828479/WhatsApp_Image_2026-01-07_at_23.33.42_1_bqgxev.jpg",
+          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1767828503/WhatsApp_Image_2026-01-07_at_23.33.45_1_glsbvn.jpg",
+          "https://res.cloudinary.com/dl90hjhoj/image/upload/v1767828503/WhatsApp_Image_2026-01-07_at_23.33.46_ycjhm7.jpg"
         ],
         video: null,
         videos: null,
