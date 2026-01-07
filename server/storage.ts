@@ -74,7 +74,8 @@ export class MemStorage implements IStorage {
         video: "https://res.cloudinary.com/dl90hjhoj/video/upload/v1765880479/WhatsApp_Video_2025-12-15_at_13.29.15_wg9bjf.mp4",
         videos: [
           "https://res.cloudinary.com/dl90hjhoj/video/upload/v1765881413/WhatsApp_Video_2025-12-15_at_13.25.14_ptughb.mp4",
-          "https://res.cloudinary.com/dl90hjhoj/video/upload/v1765881417/WhatsApp_Video_2025-12-15_at_13.25.11_acwhrj.mp4"
+          "https://res.cloudinary.com/dl90hjhoj/video/upload/v1765881417/WhatsApp_Video_2025-12-15_at_13.25.11_acwhrj.mp4",
+          "https://res.cloudinary.com/dl90hjhoj/video/upload/v1767828135/WhatsApp_Video_2026-01-07_at_23.33.51_xv2osl.mp4"
         ],
         category: "organizacao",
         featured: true,
