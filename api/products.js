@@ -113,3 +113,4 @@ router.get('/api/products/:id', (req, res) => {
 });
 
 export default router;
+// Force rebuild at Thu Jan  8 00:07:53 UTC 2026
